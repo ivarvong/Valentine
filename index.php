@@ -9,6 +9,8 @@
 	<title>A valentine for you!</title>
 	<meta name="description" content="Draw people pictures for Valentine's Day!">
 	
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+	
 	<meta property="og:title" content="DIY Valentine" />
 	<meta property="og:description" content="Draw people pictures for Valentine's Day!" />
 	<meta property="og:image" content="http://ivarvong.com/valentine/teaser.png" />
