@@ -21,13 +21,15 @@
   </header>
   <div role="main">
 
-	<div id="canvas-wrapper">
-		<canvas id="canvas" width="800" height="800">
-		No canvas, sorry.
-		</canvas>
+	<div id="canvas-wrapper" style="width: 800px; height: 600px; border: 2px solid #CCC">
+		<canvas id="canvas" width="800" height="600">No canvas, sorry.</canvas>
 	</div>
 
-	<div id="output">
+	<div id="reset"><a href="/valentine"><h2>Reset</h2></a></div>
+	<div id="save" style="cursor:pointer"><h2>Save</h2></div>
+
+	<div id="facebook-wrapper">
+		
 	</div>
 
   </div>

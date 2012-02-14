@@ -1,10 +1,15 @@
 
+function dist(a, b) {
+	var d = Math.pow(a[0]-b[0],2) + Math.pow(a[1]-b[1],2);
+	return Math.pow(d, 0.5);
+}
+
 function userDraw() {
 
 	//set it true on mousedown
 	$("#canvas").mousedown(function(){
 		draw=true; 
-		pointList.push(["down"]);
+		pointList.push([-1,-1]);
 		ctx.beginPath();
 		isFirst = true;
 	});
@@ -12,9 +17,16 @@ function userDraw() {
 	//reset it on mouseup
 	$("#canvas").mouseup(function(){ 
 		draw=false; 
-		pointList.push(["up"]);
-		window.location.hash = JSON.stringify(pointList); //set hash
-		return false; //disables browser anchor jump behavior
+		var o = new Array();
+		for(var i=0;i<pointList.length;i+=1) {
+			if (pointList[i][0] == -1) {
+				o.push(pointList[i]);
+			} else if ( dist(o.slice(-1), pointList[i]) >= 5 ) {
+				o.push(pointList[i]);
+			}
+				
+		}
+		
 	});
 	
 	$("#canvas").mousemove(function(e) {
@@ -30,23 +42,32 @@ function userDraw() {
 				
 				ctx.stroke();
 				
-				console.log(JSON.stringify(pointList));
+				//console.log(JSON.stringify(pointList));
 		}    
 	});
 }
 
 function drawBot() {
-	var todo = JSON.parse(window.location.hash.substring(1));
+	var todo;
+	
+	$.ajax({
+			type: 'POST',
+			url: "/valentine/backend.php",
+			data: {"method":"get", "key":window.location.hash.substring(1)},
+			success: function(data) { 
+				todo = JSON.parse(data);
+				//console.log(todo);
+				$("#facebook-wrapper").delay(500).fadeIn();
+			}
+		});
+	
 	var i = 0;
 	var drawBot = window.setInterval(function() {
 		var k = todo[i];
 		//console.log(todo.length - i);
-		if (k[0] == "down") {
+		if (k[0] == -1) {
 			ctx.beginPath();
 			ctx.moveTo(todo[i+1][0],todo[i+1][1]);
-			i++;
-		} else if (k[0] == "up") {
-			//pass
 			i++;
 		} else {
 			ctx.lineTo(todo[i][0],todo[i][1]);
@@ -56,7 +77,7 @@ function drawBot() {
 		if (i >= todo.length) {
 			window.clearInterval(drawBot);
 		}
-	}, 50);
+	}, 20);
 }
 
 $(document).ready(function() {
@@ -72,11 +93,21 @@ $(document).ready(function() {
 	ctx.lineCap = "round";
 	
 
-	if(window.location.hash) {
-	  // Fragment exists
+	if(window.location.hash) { // Fragment exists
 	  drawBot();
-	} else {
-	  // Fragment doesn't exist
+	} else { // Fragment doesn't exist
 	  userDraw();
 	}        
+	
+	$("#save").click(function() {
+		$.ajax({
+			type: 'POST',
+			url: "/valentine/backend.php",
+			data: {"method":"set", "data":JSON.stringify(pointList)},
+			success: function(data) { 
+				window.location.hash = data;
+				$("#facebook-wrapper").html('<a name="fb_share"></a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>');
+			}
+		});
+	});
 });
