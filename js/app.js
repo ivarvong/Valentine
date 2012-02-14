@@ -50,11 +50,19 @@ function userDraw() {
 function drawBot() {
 	var todo;
 	
+	k = window.location.hash.substring(1);
+	if (k == "w6tzj5") {
+		k = "flzcp9"; //sub out the one on reddit for grant's new one. super hack.
+	}
+	
 	$.ajax({
 			type: 'POST',
 			url: "/valentine/backend.php",
-			data: {"method":"get", "key":window.location.hash.substring(1)},
+			data: {"method":"get", "key":k},
 			success: function(data) { 
+				if (data == "error") {
+					alert("Oh no! There's been an error. Sorry! :(");
+				}
 				todo = JSON.parse(data);
 				//console.log(todo);
 				$("#facebook-wrapper").delay(500).fadeIn();
@@ -77,7 +85,7 @@ function drawBot() {
 		if (i >= todo.length) {
 			window.clearInterval(drawBot);
 		}
-	}, 20);
+	}, 5);
 }
 
 $(document).ready(function() {

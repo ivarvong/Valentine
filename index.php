@@ -27,7 +27,7 @@
 
   </header>
   <div role="main">
-
+  
 	<div id="canvas-wrapper" style="width: 800px; height: 600px; border: 2px solid #CCC">
 		<canvas id="canvas" width="800" height="600">No canvas, sorry.</canvas>
 	</div>

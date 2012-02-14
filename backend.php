@@ -8,7 +8,11 @@ function db_get($k) {
 	$result = mysql_query($sql);
 	if (!$result) { die($message); }
 	$row = mysql_fetch_assoc($result);
-	return $row["data"];
+	if ($row["data"]) {
+		return $row["data"];
+	} else {
+		return "error";
+	}
 }
 
 function db_key_exists($k) {
