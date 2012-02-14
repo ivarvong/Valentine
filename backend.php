@@ -28,6 +28,10 @@ if ($_POST["method"] == "set") {
 	}
 	apc_store($newKey, $_POST["data"]);
 	echo $newKey;
+	
+	$fp = fopen("log.txt", 'a');  
+	fwrite($fp, date("Y,m,d,H,i,s,")."$newKey\n");
+	fclose($fp); 
 
 } 
 

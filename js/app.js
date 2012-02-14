@@ -88,15 +88,17 @@ $(document).ready(function() {
 	
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
-	ctx.strokeStyle = '#CD1076';
+	ctx.strokeStyle = '#F64A8A';
 	ctx.lineWidth = 3;
 	ctx.lineCap = "round";
 	
 
 	if(window.location.hash) { // Fragment exists
 	  drawBot();
+
 	} else { // Fragment doesn't exist
 	  userDraw();
+	  $("#save").show();
 	}        
 	
 	$("#save").click(function() {
@@ -106,7 +108,7 @@ $(document).ready(function() {
 			data: {"method":"set", "data":JSON.stringify(pointList)},
 			success: function(data) { 
 				window.location.hash = data;
-				$("#facebook-wrapper").html('<a name="fb_share"></a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>');
+				$("#facebook-wrapper").html('<a name="fb_share" type="button"></a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>');
 			}
 		});
 	});

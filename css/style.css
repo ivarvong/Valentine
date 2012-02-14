@@ -66,8 +66,34 @@ td { vertical-align: top; }
 
 
 
-
-
+#reset {	
+	float: left;
+	margin: 10px;
+	padding: 0 10px;
+	border: 2px solid #CCC;
+	background: #CCC;
+	cursor: pointer;
+	border-radius: 10px;
+}
+#reset a {
+	color: #F64A8A;
+	text-decoration: none;
+}
+#save {
+	float: left;
+	margin: 10px;
+	margin-left: 0;
+	padding: 0 10px;
+	border: 2px solid #CCC;
+	color: #F64A8A;
+	background: #CCC;
+	cursor: pointer;
+	border-radius: 10px;
+}
+#facebook-wrapper {	
+	float: left;
+	margin: 10px;
+}
 
 
 
