@@ -22,9 +22,12 @@
   <div role="main">
 
 	<div id="canvas-wrapper">
-		<canvas id="canvas" width="100%" height="100%">
+		<canvas id="canvas" width="800" height="800">
 		No canvas, sorry.
 		</canvas>
+	</div>
+
+	<div id="output">
 	</div>
 
   </div>
@@ -37,7 +40,6 @@
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
 
   <script src="js/plugins.js"></script>
-  <script src="js/script.js"></script>
   <script src="js/app.js"></script>
 
   <script>
