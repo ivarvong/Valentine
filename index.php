@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title></title>
+  <title>Valetines</title>
   <meta name="description" content="">
 
   <meta name="viewport" content="width=device-width">
@@ -25,13 +25,17 @@
 		<canvas id="canvas" width="800" height="600">No canvas, sorry.</canvas>
 	</div>
 
-	<div id="reset"><a href="/valentine"><h2>Reset</h2></a></div>
-	<div id="save" style="cursor:pointer"><h2>Save</h2></div>
 
-	<div id="facebook-wrapper">
-		
+	<div id="nav">
+		<div id="reset" class="nav-item"><a href="/valentine"><h2>Make a new one!</h2></a></div>
+		<div id="save" style="cursor:pointer" class="nav-item"><h2>Save this one!</h2></div>	
+		<div id="facebook-wrapper" class="nav-item"></div>
+		<div style="clear:both" />
 	</div>
 
+	
+
+	
   </div>
   <footer>
 
@@ -45,7 +49,7 @@
   <script src="js/app.js"></script>
 
   <script>
-    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    var _gaq=[['_setAccount','UA-7098925-6'],['_trackPageview']];
     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
     g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
     s.parentNode.insertBefore(g,s)}(document,'script'));

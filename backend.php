@@ -5,7 +5,7 @@ if (!function_exists('apc_exists')) {
 }
     
 function genRandomString() {
-    $length = 5;
+    $length = 6;
     $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
     $string = '';    
     for ($p = 0; $p < $length; $p++) {
