@@ -1,32 +1,54 @@
 <?php 
-
-if (!function_exists('apc_exists')) {
-        function apc_exists($key) { return (boolean)apc_fetch($key); }
-}
+include("db.php");
+$con = mysql_connect("localhost",$dbuser,$dbpass);
+mysql_select_db("valentine", $con);    
     
+function db_get($k) {
+	$sql = "SELECT * FROM lookup WHERE k = '$k'";
+	$result = mysql_query($sql);
+	if (!$result) { die($message); }
+	$row = mysql_fetch_assoc($result);
+	return $row["data"];
+}
+
+function db_key_exists($k) {
+	$sql = "SELECT * FROM lookup WHERE k = '$k'";
+	$result = mysql_query($sql);
+	if (mysql_num_rows($result) == 0) {
+		return false;
+	} else {	
+		return true;
+	}
+}
+
 function genRandomString() {
     $length = 6;
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    $characters = "0123456789abcdefghijklmnopqrstuvwxyz";
     $string = '';    
-    for ($p = 0; $p < $length; $p++) {
+    for ($p=0; $p<$length; $p++) {
         $string .= $characters[mt_rand(0, strlen($characters))];
     }
     return $string;
 }
 
-$file = 'log.txt'; 
-$arr= $_POST; 
+$file = 'log.txt';
 
 if ($_POST["method"] == "set") {
 
 	$foundNewKey = false;
 	while ($foundNewKey == false) {
 		$newKey = genRandomString();
-		if (!apc_exists($newKey)) {	
+		if (!db_key_exists($newKey)) {	
 			$foundNewKey = true;
 		}
 	}
-	apc_store($newKey, $_POST["data"]);
+
+	$data = mysql_real_escape_string($_POST["data"]);
+
+	$sql="INSERT INTO lookup (k, data) VALUES ('$newKey', '$data')";
+	$result = mysql_query($sql);
+	if (!$result) { die($message); }
+
 	echo $newKey;
 	
 	$fp = fopen("log.txt", 'a');  
@@ -36,10 +58,6 @@ if ($_POST["method"] == "set") {
 } 
 
 if ($_POST["method"] == "get") {
-	$k = $_POST["key"];
-	if (apc_exists($k)) {
-		echo apc_fetch($k);
-	} else {
-		echo "invalid key";
-	}
+	$k = mysql_real_escape_string($_POST["key"]);
+	echo db_get($k);
 } 
